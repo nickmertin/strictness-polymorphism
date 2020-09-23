@@ -13,13 +13,18 @@ import Data.StrictnessPolymorphism
 data List s a = Nil | Cons a (StrictPoly s (List s a))
     deriving (Show, Functor)
 
+fromList :: KnownStrictness s => [a] -> List s a
+fromList = fromList' id
+
+fromList' :: KnownStrictness s => (List s a -> b) -> [a] -> b
+fromList' f [] = f Nil
+fromList' f (a:as) = newStrictPoly (f . Cons a) (fromList as)
+
 strictFromList :: [a] -> List Strict a
-strictFromList [] = Nil
-strictFromList (a:as) = newStrictPoly (strictFromList as) (Cons a)
+strictFromList = fromList
 
 lazyFromList :: [a] -> List Lazy a
-lazyFromList [] = Nil
-lazyFromList (a:as) = newStrictPoly (lazyFromList as) (Cons a)
+lazyFromList = fromList
 
 toList :: List s a -> [a]
 toList Nil = []
