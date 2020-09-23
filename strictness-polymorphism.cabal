@@ -1,0 +1,51 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.33.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: ae171123fef09a5f035a9b6799d4738e8c07c70866225325f02c1efe511a1205
+
+name:           strictness-polymorphism
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/strictness-polymorphism#readme>
+homepage:       https://github.com/nickmertin/strictness-polymorphism#readme
+bug-reports:    https://github.com/nickmertin/strictness-polymorphism/issues
+author:         Nick Mertin
+maintainer:     nickmertin@gmail.com
+copyright:      2020 Nick Mertin
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/nickmertin/strictness-polymorphism
+
+library
+  exposed-modules:
+      Data.StrictnessPolymorphism
+      Data.StrictnessPolymorphism.List
+  other-modules:
+      Paths_strictness_polymorphism
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5
+  default-language: Haskell2010
+
+test-suite strictness-polymorphism-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_strictness_polymorphism
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , strictness-polymorphism
+  default-language: Haskell2010
